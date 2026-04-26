@@ -1,3 +1,4 @@
+// Buildfolio — API utility (production: buildfolio-api.onrender.com)
 import axios from "axios";
 
 const PROD_API = "https://buildfolio-api.onrender.com";
