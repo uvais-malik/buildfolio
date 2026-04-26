@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const PROD_API = "https://buildfolio-api-mmif.onrender.com";
+const PROD_API = "https://buildfolio-api.onrender.com";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000" : PROD_API),
