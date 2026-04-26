@@ -17,24 +17,27 @@ const app = express();
 // ── Middleware ──────────────────────────────────────────────────────────────
 const allowedOrigins = [
   process.env.FRONTEND_URL,
+  "https://buildfolio-one.vercel.app",
   "http://localhost:5173",
   "http://localhost:3000",
-  /^https:\/\/.*\.vercel\.app$/,   // all vercel preview URLs
+  /^https:\/\/.*\.vercel\.app$/,
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, curl, etc.)
     if (!origin) return callback(null, true);
     const allowed = allowedOrigins.some(o =>
       o instanceof RegExp ? o.test(origin) : o === origin
     );
-    if (allowed) return callback(null, true);
-    console.warn("CORS blocked:", origin);
-    callback(new Error("Not allowed by CORS"));
+    callback(null, allowed ? origin : false);
   },
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
+// Explicit OPTIONS handler for all preflight requests
+app.options("*", cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
