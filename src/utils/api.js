@@ -1,10 +1,10 @@
-// Buildfolio — API utility (production: buildfolio-api.onrender.com)
+// Buildfolio — API utility
+// DEV  → http://localhost:5000  (local Express server)
+// PROD → /api  (same-domain Vercel serverless function, set via .env.production)
 import axios from "axios";
 
-const PROD_API = "https://buildfolio-production.up.railway.app";
-
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000" : PROD_API),
+  baseURL: import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000" : "/api"),
   headers: { "Content-Type": "application/json" },
 });
 
